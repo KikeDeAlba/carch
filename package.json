@@ -1,0 +1,29 @@
+{
+  "name": "carch",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "bin": {
+    "carch": "./bin/carch"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "keywords": ["cli", "commander", "tool"],
+  "author": "",
+  "license": "ISC",
+  "description": "Carch CLI - Command Line Interface for Clean Architecture",
+  "dependencies": {
+    "commander": "^11.1.0",
+    "chalk": "^4.1.2",
+    "inquirer": "^8.2.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
