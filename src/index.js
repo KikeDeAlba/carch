@@ -13,6 +13,7 @@ const packageJson = JSON.parse(readFileSync(join(__dirname, '../package.json'), 
 
 // Import command modules
 import initCommand from './commands/init.js';
+import { entityCommand } from './commands/entity.js';
 
 const program = new Command();
 
@@ -33,7 +34,7 @@ program
   });
 
 // Register commands
-program.addCommand(initCommand);
+program.addCommand(initCommand).addCommand(entityCommand);
 
 // Handle unknown commands
 program.on('command:*', function (operands) {
