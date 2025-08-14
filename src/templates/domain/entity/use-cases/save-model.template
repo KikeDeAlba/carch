@@ -1,0 +1,8 @@
+import { UseCase } from '@/common/core/use-case';
+import { {PascalCaseName}Model } from '../models/{KebabCaseName}.model'
+import { Observable } from 'rxjs'
+
+export abstract class Save{PascalCaseName}UseCase 
+    implements UseCase<Partial<{PascalCaseName}Model>, {PascalCaseName}Model> {
+        abstract execute(input: Partial<{PascalCaseName}Model>): Observable<{PascalCaseName}Model>;
+}

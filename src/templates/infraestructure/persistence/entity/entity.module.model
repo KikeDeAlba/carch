@@ -1,0 +1,15 @@
+```ts
+import { Module, Provider } from '@nestjs/common'
+import { {PascalCaseName}Entity } from './entities/{KebabCaseName}.entity'
+import { {PascalCaseName}Provider } from './providers/{KebabCaseName}.provider'
+import { TypeOrmModule } from '@nestjs/typeorm'
+
+const {PascalCaseName}Registry: Provider[] = [{PascalCaseName}Provider]
+
+@Module({
+    imports: [TypeOrmModule.forFeature([{PascalCaseName}Entity])],
+    providers: {PascalCaseName}Registry,
+    exports: {PascalCaseName}Registry,
+})
+export class {PascalCaseName}Module {}
+```

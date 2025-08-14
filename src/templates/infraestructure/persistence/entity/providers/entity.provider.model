@@ -1,0 +1,9 @@
+```ts
+import { Provider } from '@nestjs/common'
+import { {PascalCaseName}Repository } from '../../../../domain/{KebabCaseName}/repositories/{KebabCaseName}.repository'
+import { {PascalCaseName}ImplRepository } from '../repositories/{KebabCaseName}-impl.repository'
+
+export const {PascalCaseName}Provider: Provider = {
+    provide: {PascalCaseName}Repository,
+    useClass: {PascalCaseName}ImplRepository
+}

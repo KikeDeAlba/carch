@@ -1,0 +1,9 @@
+import { UseCase } from '@/common/core/use-case';
+import { {PascalCaseName}Model } from '../models/{KebabCaseName}.model'
+import { FindManyOptions } from 'typeorm'
+import { Observable } from 'rxjs'
+
+export abstract class FindAll{PascalCaseName}UseCase 
+    implements UseCase<FindManyOptions<{PascalCaseName}Model> | void, {PascalCaseName}Model[]> {
+        abstract execute(input: FindManyOptions<{PascalCaseName}Model> | void): Observable<{PascalCaseName}Model[]>;
+}

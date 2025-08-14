@@ -11,14 +11,19 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "module",
-  "keywords": ["cli", "commander", "tool"],
+  "keywords": [
+    "cli",
+    "commander",
+    "tool"
+  ],
   "author": "",
   "license": "ISC",
   "description": "Carch CLI - Command Line Interface for Clean Architecture",
   "dependencies": {
-    "commander": "^11.1.0",
     "chalk": "^4.1.2",
-    "inquirer": "^8.2.6"
+    "commander": "^11.1.0",
+    "inquirer": "^8.2.6",
+    "prettier": "^3.6.2"
   },
   "devDependencies": {
     "nodemon": "^3.0.2"

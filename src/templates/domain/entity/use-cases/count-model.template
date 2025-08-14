@@ -1,0 +1,9 @@
+import { UseCase } from '@/common/core/use-case';
+import { {PascalCaseName}Model } from '../models/{KebabCaseName}.model'
+import { FindManyOptions } from 'typeorm'
+import { Observable } from 'rxjs'
+
+export abstract class Count{PascalCaseName}UseCase 
+    implements UseCase<FindManyOptions<{PascalCaseName}Model>, number> {
+        abstract execute(input: FindManyOptions<{PascalCaseName}Model>): Observable<number>;
+}

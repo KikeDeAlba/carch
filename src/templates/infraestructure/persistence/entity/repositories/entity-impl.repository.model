@@ -1,0 +1,34 @@
+```ts
+import { FindManyOptions, FindOneOptions, DeleteResult, FindOptionsWhere, InjectRepository, Repository } from 'typeorm'
+import { {PascalCaseName}Repository } from '../../../../domain/{KebabCaseName}/repositories/{KebabCaseName}.repository'
+import { {PascalCaseName}Model } from '../../../../domain/{KebabCaseName}/models/{KebabCaseName}.model'
+import { Observable } from 'rxjs'
+
+@Injectable()
+export class {PascalCaseName}ImplRepository implements {PascalCaseName}Repository {
+    constructor(
+        @InjectRepository({PascalCaseName}Entity)
+        private readonly repository: Repository<{PascalCaseName}Entity>
+    ) {}
+
+    findAll(input: FindManyOptions<{PascalCaseName}Model> | void): Observable<{PascalCaseName}Model[]> {
+        return from(this.repository.find(input));
+    }
+
+    findOne(input: FindOneOptions<{PascalCaseName}Model>): Observable<{PascalCaseName}Model> {
+        return from(this.repository.findOne(input));
+    };
+
+    count(input: FindManyOptions<{PascalCaseName}Model> | void): Observable<number> {
+        return from(this.repository.count(input));
+    };
+
+    save(input: Partial<{PascalCaseName}Model>): Observable<{PascalCaseName}Model> {
+        return from(this.repository.save(input));
+    };
+
+    remove(input: FindOptionsWhere<{PascalCaseName}Model>): Observable<DeleteResult> {
+        return from(this.repository.delete(input));
+    };
+}
+```
