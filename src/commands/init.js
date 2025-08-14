@@ -3,13 +3,13 @@ import chalk from 'chalk';
 import fs from 'fs';
 import path from 'path';
 import inquirer from 'inquirer';
+import { execSync } from 'child_process';
 
 const initCommand = new Command('init');
 
 initCommand
   .description('Initialize a new project')
   .argument('[project-name]', 'name of the project')
-  .option('-t, --template <type>', 'project template', 'basic')
   .option('-f, --force', 'overwrite existing files')
   .action(async (projectName, options) => {
     try {
@@ -36,37 +36,52 @@ initCommand
         process.exit(1);
       }
 
-      // Create project directory
-      if (!fs.existsSync(projectPath)) {
-        fs.mkdirSync(projectPath, { recursive: true });
+      // Remove existing directory if force option is used
+      if (fs.existsSync(projectPath) && options.force) {
+        fs.rmSync(projectPath, { recursive: true, force: true });
       }
 
-      // Create basic project structure
-      const structure = {
-        'package.json': JSON.stringify({
-          name: name,
-          version: '1.0.0',
-          description: '',
-          main: 'index.js',
-          scripts: {
-            start: 'node index.js'
-          }
-        }, null, 2),
-        'index.js': '// Your project starts here\nconsole.log("Hello from " + require("./package.json").name);',
-        'README.md': `# ${name}\n\nProject initialized with carch CLI.`,
-        '.gitignore': 'node_modules/\n.env\n*.log'
-      };
+      console.log(chalk.blue(`Cloning Nca-Base repository...`));
+      
+      // Clone the repository
+      try {
+        execSync(`git clone https://github.com/KikeDeAlba/Nca-Base.git "${name}"`, {
+          stdio: 'inherit',
+          cwd: process.cwd()
+        });
 
-      // Write files
-      for (const [filename, content] of Object.entries(structure)) {
-        fs.writeFileSync(path.join(projectPath, filename), content);
+        // Remove the .git directory to start fresh
+        const gitPath = path.join(projectPath, '.git');
+        if (fs.existsSync(gitPath)) {
+          fs.rmSync(gitPath, { recursive: true, force: true });
+        }
+
+        // Update package.json with the new project name
+        const packageJsonPath = path.join(projectPath, 'package.json');
+        if (fs.existsSync(packageJsonPath)) {
+          const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+          packageJson.name = name;
+          fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+        }
+
+        // Initialize a new git repository
+        execSync('git init', {
+          stdio: 'inherit',
+          cwd: projectPath
+        });
+
+        console.log(chalk.green(`✓ Project ${name} initialized successfully from Nca-Base template!`));
+        console.log(chalk.blue(`\nNext steps:`));
+        console.log(`  cd ${name}`);
+        console.log(`  npm install`);
+        console.log(`  git add .`);
+        console.log(`  git commit -m "Initial commit"`);
+
+      } catch (cloneError) {
+        console.error(chalk.red('Error cloning repository:'), cloneError.message);
+        console.error(chalk.yellow('Make sure you have git installed and internet connectivity.'));
+        process.exit(1);
       }
-
-      console.log(chalk.green(`✓ Project ${name} initialized successfully!`));
-      console.log(chalk.blue(`\nNext steps:`));
-      console.log(`  cd ${name}`);
-      console.log(`  npm install`);
-      console.log(`  npm start`);
 
     } catch (error) {
       console.error(chalk.red('Error initializing project:'), error.message);
