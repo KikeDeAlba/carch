@@ -39,7 +39,8 @@ async function replaceContent(content, replacements) {
 entityCommand
     .description('Generate a new entity')
     .argument('[entity-name]', 'name of the entity')
-    .action(async (entityName) => {
+    .option('-u, --use-cases', 'Generate use cases for the entity')
+    .action(async (entityName, options) => {
         const entityNameKebapCase = entityName.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
         const entityNamePascalCase = entityName.charAt(0).toUpperCase() + entityName.slice(1);
         const entityNamePluralSnakeCase = entityNameKebapCase.endsWith('s') ? entityNameKebapCase : `${entityNameKebapCase}s`;
@@ -69,6 +70,7 @@ entityCommand
 
         // Infrastructure Generation
         const persistencePath = path.join(process.cwd(), 'src', 'infrastructure', 'persistence');
+
         const entityPath = path.join(persistencePath, entityNameKebapCase, 'entities', `${entityNameKebapCase}.entity.ts`);
         const entityTemplatePath = path.join(path.dirname(__filename), '..', 'templates', 'infrastructure', 'persistence', 'entity', 'entities', 'entity.model');
         const entityTemplateContent = fs.readFileSync(entityTemplatePath, 'utf-8');
@@ -76,4 +78,13 @@ entityCommand
 
         fs.mkdirSync(path.dirname(entityPath), { recursive: true });
         fs.writeFileSync(entityPath, entityContent);
+
+        const entityModulePath = path.join(persistencePath, entityNameKebapCase, `${entityNameKebapCase}.module.ts`);
+        const entityModuleTemplatePath = path.join(path.dirname(__filename), '..', 'templates', 'infrastructure', 'persistence', 'entity', options['useCases'] ? 'entity.module.model' : 'entity.module-without-u.model');
+        let entityModuleTemplateContent = fs.readFileSync(entityModuleTemplatePath, 'utf-8');
+
+        const entityModuleContent = await replaceContent(entityModuleTemplateContent, replaceObject);
+
+        fs.mkdirSync(path.dirname(entityModulePath), { recursive: true });
+        fs.writeFileSync(entityModulePath, entityModuleContent);
     });

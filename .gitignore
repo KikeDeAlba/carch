@@ -79,3 +79,5 @@ build/
 
 # Configuration files (may contain sensitive data)
 .carch.json
+
+examples

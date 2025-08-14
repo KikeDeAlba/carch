@@ -41,7 +41,7 @@ initCommand
         fs.rmSync(projectPath, { recursive: true, force: true });
       }
 
-      console.log(chalk.blue(`Cloning Nca-Base repository...`));
+      console.log(chalk.blue(`Initializing repository...`));
       
       // Clone the repository
       try {
@@ -70,7 +70,7 @@ initCommand
           cwd: projectPath
         });
 
-        console.log(chalk.green(`✓ Project ${name} initialized successfully from Nca-Base template!`));
+        console.log(chalk.green(`✓ Project ${name} initialized successfully!`));
         console.log(chalk.blue(`\nNext steps:`));
         console.log(`  cd ${name}`);
         console.log(`  npm install`);
