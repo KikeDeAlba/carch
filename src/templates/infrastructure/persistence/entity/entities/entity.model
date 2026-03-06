@@ -1,9 +1,0 @@
-import { Entity, PrimaryGeneratedColumn } from 'typeorm'
-import { {PascalCaseName}Model } from '../../../../domain/{KebabCaseName}/models/{KebabCaseName}.model'
-
-
-@Entity({name: '{PluralSnakeCaseName}'})
-export class {PascalCaseName}Entity implements {PascalCaseName}Model {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
-}

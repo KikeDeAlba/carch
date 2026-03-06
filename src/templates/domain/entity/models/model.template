@@ -1,3 +1,0 @@
-export interface {PascalCaseName}Model {
-    id: string;
-}

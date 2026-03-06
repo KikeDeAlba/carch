@@ -1,9 +1,0 @@
-import { UseCase } from '@/common/core/use-case';
-import { {PascalCaseName}Model } from '../models/{KebabCaseName}.model'
-import { FindOptionsWhere, DeleteResult } from 'typeorm'
-import { Observable } from 'rxjs'
-
-export abstract class Delete{PascalCaseName}UseCase 
-    implements UseCase<FindOptionsWhere<{PascalCaseName}Model>, DeleteResult> {
-        abstract execute(input: FindOptionsWhere<{PascalCaseName}Model>): Observable<DeleteResult>;
-}
